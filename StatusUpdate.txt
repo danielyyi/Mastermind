@@ -1,0 +1,3 @@
+Jan. 24...
+  Today separated my code into a Tester and Game class. For the Tester, I made an inital UI and also allowed users to input a guess. In the Game class, I made a function 
+  to nicely print out the board and also started to add guessing and feedback. 
