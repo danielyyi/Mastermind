@@ -3,10 +3,15 @@ public class Game{
 	ArrayList<ArrayList<Character>> board;
 	ArrayList<Character> code;
 	ArrayList<Character> bank;
+	ArrayList<Integer> scrambled;
+	ArrayList<Integer> unscrambled;
 	private int pos;
 	public Game(){
 		pos = 0;
 		board = new ArrayList<ArrayList<Character>>();
+		unscrambled = new ArrayList<Integer>();
+		unscrambled.add(0);unscrambled.add(1);unscrambled.add(2);unscrambled.add(3);
+		scrambled = new ArrayList<Integer>();
 		//make board------------------------------------------
 		for(int i = 0; i<20;i++){
 			board.add(new ArrayList<Character>());
@@ -47,49 +52,52 @@ public class Game{
 	}
 	public void convert(String input){
 		ArrayList<Character> guess = new ArrayList<Character>();
-		for(int i = 0; i<4;i++){
-			guess.add(input.charAt(i));
-		}
+		ArrayList<Character> pins = new ArrayList<Character>();
 		
 		for(int i = 0; i<4;i++){
-			board.get(pos).set(i, guess.get(i));
-			
-			if(guess.get(i) == code.get(i)){
-				if(board.get(pos).get(5) == '*'){
-					board.get(pos).set(5, 'W');
-				}else{
-					if(board.get(pos).get(6) == '*'){
-						board.get(pos).set(6, 'W');
+			guess.add(input.charAt(i));
+			for(int k = 0; k<4; k++){
+				if(guess.get(i) == code.get(k)){
+					if(k==i){
+						pins.add('B');
 					}else{
-						if(board.get(pos+1).get(5) == '*'){
-							board.get(pos+1).set(5, 'W');
-						}else{
-							board.get(pos+1).set(6, 'W');
-						}
-					}
-				}
-			}else{
-				if(board.get(pos).get(5) == '*'){
-					board.get(pos).set(5, 'B');
-				}else{
-					if(board.get(pos).get(6) == '*'){
-						board.get(pos).set(6, 'B');
-					}else{
-						if(board.get(pos+1).get(5) == '*'){
-							board.get(pos+1).set(5, 'B');
-						}else{
-							board.get(pos+1).set(6, 'B');
-						}
+						pins.add('W');
 					}
 				}
 			}
-			
+			board.get(pos).set(i, guess.get(i));
 		}
+		ArrayList<Integer> copy = unscrambled;
+		for(int i = 0; i<4; i++){
+			int rand = (int)(Math.random()* (4-i));
+			scrambled.add(copy.get(rand));
+			copy.remove(rand);
+		}
+		
+		
+		for(int i = 0; i<pins.size();i++){
+			if(i == scrambled.get(0)){
+				board.get(pos).set(5, pins.get(0));
+			}else if(i== scrambled.get(1)){
+				board.get(pos).set(6, pins.get(1));
+			}
+			else if(i== scrambled.get(2)){
+				board.get(pos+1).set(5, pins.get(2));
+			}else{
+				board.get(pos+1).set(6, pins.get(3));
+			}
+		}
+		
+		
+		System.out.println(pins);
+		printBoard();
+		
+		pos+=2;
 		
 	}
 	public void printBoard(){
+		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		System.out.println(" BOARD:        SCORE:");
-		
 		int counter = 0;
 		System.out.println("---------------------");
 		for(int i = 0; i<board.size();i++){
@@ -108,7 +116,6 @@ public class Game{
 			counter++;
 		}	
 		System.out.println("---------------------");
-		System.out.println(code);
 	}
 	
 	
