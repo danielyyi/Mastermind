@@ -3,15 +3,10 @@ public class Game{
 	ArrayList<ArrayList<Character>> board;
 	ArrayList<Character> code;
 	ArrayList<Character> bank;
-	ArrayList<Integer> scrambled;
-	ArrayList<Integer> unscrambled;
 	private int pos;
 	public Game(){
 		pos = 0;
 		board = new ArrayList<ArrayList<Character>>();
-		unscrambled = new ArrayList<Integer>();
-		unscrambled.add(0);unscrambled.add(1);unscrambled.add(2);unscrambled.add(3);
-		scrambled = new ArrayList<Integer>();
 		//make board------------------------------------------
 		for(int i = 0; i<20;i++){
 			board.add(new ArrayList<Character>());
@@ -50,7 +45,7 @@ public class Game{
 		}
 		//----------------------------------------------------
 	}
-	public void convert(String input){
+	public boolean guess(String input){
 		ArrayList<Character> guess = new ArrayList<Character>();
 		ArrayList<Character> pins = new ArrayList<Character>();
 		
@@ -67,33 +62,40 @@ public class Game{
 			}
 			board.get(pos).set(i, guess.get(i));
 		}
-		ArrayList<Integer> copy = unscrambled;
-		for(int i = 0; i<4; i++){
-			int rand = (int)(Math.random()* (4-i));
-			scrambled.add(copy.get(rand));
-			copy.remove(rand);
-		}
 		
+		ArrayList<Integer> unscrambled = new ArrayList<Integer>();
+		unscrambled.add(0);unscrambled.add(1);unscrambled.add(2);unscrambled.add(3);
+		ArrayList<Integer> scrambled = new ArrayList<Integer>();
+
+		for(int i = 0; i<4; i++){
+			int rand = (int)(Math.random()* unscrambled.size());
+			scrambled.add(unscrambled.get(rand));
+			unscrambled.remove(rand);
+		}
 		
 		for(int i = 0; i<pins.size();i++){
 			if(i == scrambled.get(0)){
-				board.get(pos).set(5, pins.get(0));
+				board.get(pos).set(5, pins.get(i));
 			}else if(i== scrambled.get(1)){
-				board.get(pos).set(6, pins.get(1));
+				board.get(pos).set(6, pins.get(i));
 			}
 			else if(i== scrambled.get(2)){
-				board.get(pos+1).set(5, pins.get(2));
+				board.get(pos+1).set(5, pins.get(i));
 			}else{
-				board.get(pos+1).set(6, pins.get(3));
+				board.get(pos+1).set(6, pins.get(i));
 			}
 		}
 		
-		
+		pos+=2;
+		unscrambled.add(0);unscrambled.add(1);unscrambled.add(2);unscrambled.add(3);
 		System.out.println(pins);
 		printBoard();
 		
-		pos+=2;
+		if(pos == 20){
+			return false;
+		}
 		
+		return true;
 	}
 	public void printBoard(){
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -120,3 +122,4 @@ public class Game{
 	
 	
 }
+
