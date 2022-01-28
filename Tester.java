@@ -17,7 +17,7 @@ public class Tester{
 			System.out.println("Possible Pin Colors: R, O, Y, G, B, P, W");
 			System.out.print("Input 4 Pin Colors To Guess: ");
 			String input = scan2.nextLine();
-			g.convert(input);
+			playing = g.guess(input);
 		}
 		g.printBoard();
 	}
