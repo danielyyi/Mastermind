@@ -131,7 +131,7 @@ public class Game{
 		System.out.println("---------------------");
 		for(int i = 0; i<board.size();i++){//places dividers nicely
 			if(counter ==2){
-				System.out.println("---------------------")
+				System.out.println("---------------------");
 				counter = -1;
 				i--;
 			}else{
