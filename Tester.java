@@ -1,3 +1,7 @@
+/**
+ * @author Daniel Yi
+ * **/
+
 /*this is the Tester class that handles the UI and player inputs:
  * main function
  * playGame function*/
@@ -18,6 +22,8 @@ public class Tester{
 		System.out.println("- If you see a B pin, you know you have a correct letter in the right order.");
 		System.out.println("- The pin positions don't correspond to the order of the words.");
 		System.out.println("- You have 10 tries to guess the code correctly. Letters do not repeat.");
+		System.out.println("- Make sure to enter in valid letters to not waste turns");
+		System.out.println("- PLEASE MAXIMIZE WINDOW FOR BEST EXPERIENCE");
 		System.out.println("--------------------------------------------------------------------------------------------------------------");
 		System.out.print("Press [Enter] to Play: ");
 		scan.nextLine();
@@ -34,6 +40,7 @@ public class Tester{
 		Game g = new Game();
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		int status = 0;
+		g.printBoard();
 		while(status == 0){//keeps going if keep playing: 1=lose, 2 = win
 			Scanner scan2 = new Scanner(System.in);
 			
@@ -42,11 +49,11 @@ public class Tester{
 			String input = scan2.nextLine();
 			//if not 4 letters
 			if(input.length() != 4){
-				System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+				g.printBoard();
 				System.out.println("INPUT ERROR: Your code must be 4 letters long!!!");
 			//if not a letter
 			}else if(Character.isLetter(input.charAt(0)) == false || Character.isLetter(input.charAt(1)) == false || Character.isLetter(input.charAt(2)) == false || Character.isLetter(input.charAt(3)) == false){
-				System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+				g.printBoard();
 				System.out.println("INPUT ERROR: Letters only please!!!");
 			}else{
 				//even if the input is lower case, still work
@@ -57,6 +64,8 @@ public class Tester{
 		
 		if(status == 1){
 			System.out.println("OH NO! YOU RAN OUT OF GUESSES!! YOU LOSE!!");
+			System.out.print("THE CODE WAS: ");
+			System.out.println(g.code);
 		}else{
 			System.out.println("YAY! YOU WIN!");
 		}
