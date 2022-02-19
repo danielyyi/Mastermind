@@ -1,5 +1,6 @@
 # Mastermind
 
+## (This is a mini project for school)
 ## How To Play:
   A computer will randomly generate a secret, 4 digit code. The goal of the player is to guess the code by guessing possible 4 letter combinations (the possible letters are RGBYWPO). Once the player guesses, B pins indicate if a letter is in the code and in the right place and W pins indicate if a letter is in the code but in the wrong place. The placement of the indicator pins are random. The player has 10 tries to guess the code or they lose. Letters do not repeat. Have fun!
 
